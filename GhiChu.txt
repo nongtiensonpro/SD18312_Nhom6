@@ -1,0 +1,7 @@
+/**
+ *
+ * @author Nong_Tien_Son
+ */
+Chạy CreateDataBase đầu tiên để có cơ sở dữ liệu
+Kiểm tra xem mật khẩu cơ sở dữ liệu có giống trong file DatabaseConnection nếu không thì đổi mật khẩu là Ok1234@4321
+Nếu lỗi IP/TCP 1433 nhớ bật cổng đó lên hoặc kiểm tra SQL Server có hoạt động hay không
