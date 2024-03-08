@@ -18,5 +18,16 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>12.6.0.jre8</version> <!-- Thay thế bằng phiên bản thích hợp -->
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.intercoordinator/jdate-range -->
+        <dependency>
+            <groupId>com.intercoordinator</groupId>
+            <artifactId>jdate-range</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
     </dependencies>
 </project>

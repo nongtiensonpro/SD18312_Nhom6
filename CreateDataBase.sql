@@ -1,4 +1,7 @@
-
+/**
+ *
+ * @author Nong_Tien_Son
+ */
 USE MASTER
 
 GO
@@ -23,6 +26,11 @@ CREATE TABLE ThongTinNhanVien(
     Email VARCHAR(35)
 )
 GO
+SELECT * FROM ThongTinNhanVien
+INSERT INTO ThongTinNhanVien (Ma_NhanVien,HoTen,GioiTinh,NgaySinh,DiaChi,Email)
+VALUES 
+('B95EFBB9-26DA-452A-8131-3FF08A96FEEC', N'Nông Tiến Sơn',1,GETDATE(),N'Hà Nội','nongtiensonpro@gmail.com')
+GO
 CREATE TABLE ChucVuNhanVien(
     Ma_NhanVien VARCHAR(36) PRIMARY KEY,
     VaiTro BIT,
@@ -30,7 +38,10 @@ CREATE TABLE ChucVuNhanVien(
     NgaySua DATE,
     TrangThai BIT
 )
-
+SELECT * FROM TaiKhoanNhanVien 
+INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien
+INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien
+WHERE TaiKhoanNhanVien.Ma_NhanVien = 'B95EFBB9-26DA-452A-8131-3FF08A96FEEC'
 -- Dữ liệu cho bảng TaiKhoanNhanVien
 INSERT INTO TaiKhoanNhanVien (SoDienThoai, MatKhau)
 VALUES 
@@ -40,9 +51,16 @@ VALUES
 ('0901234567', 'hashedpassword4'),
 ('0912345678', 'hashedpassword5');
 
-
+INSERT INTO TaiKhoanNhanVien (SoDienThoai, MatKhau)
+VALUES 
+('123456789', '123456789')
 SELECT * FROM [dbo].[TaiKhoanNhanVien]
-
+SELECT Ma_NhanVien, SoDienThoai, MatKhau FROM TaiKhoanNhanVien WHERE SoDienThoai = '123456789' AND MatKhau = '123456789'
+INSERT INTO ChucVuNhanVien (Ma_NhanVien, VaiTro,NgayTao,NgaySua,TrangThai)
+VALUES 
+('B95EFBB9-26DA-452A-8131-3FF08A96FEEC', 1,GETDATE(),GETDATE(),1)
+SELECT * FROM ChucVuNhanVien
+in
 -- -- Dữ liệu cho bảng ThongTinNhanVien
 -- INSERT INTO ThongTinNhanVien (Ma_NhanVien, HoTen, GioiTinh, NgaySinh, DiaChi, Email)
 -- VALUES 

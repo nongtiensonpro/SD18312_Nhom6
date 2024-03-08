@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view_main;
 
 import utilities.DateNew;
-import utilities.CheckText;
 import controller.TaiKhoanNhanVienController;
 import javax.swing.JOptionPane;
 import model.TaiKhoanNhanVien;
@@ -15,16 +14,20 @@ import model.TaiKhoanNhanVien;
  * @author Nong_Tien_Son
  */
 public class DangNhap extends javax.swing.JFrame {
-
+    public static String Ma_NhanVienstatic;
     /**
      * Creates new form DangNhap
      */
     public DangNhap() {
         initComponents();
-        setLocationRelativeTo(null);
         setDate();
+        dangNhapNhanh();//dùng để dăng nhập nhanh không cần mật khẩu
     }
-
+    private void dangNhapNhanh(){
+        txtPhoneNumber.setText("123456789");
+        txtPassword.setText("123456789");
+    }
+    //hiển thị thứ ngày tháng năm nè
     private void setDate() {
         DateNew dateNew = new DateNew();
         txtDateNew.setText(dateNew.dayNew());
@@ -34,18 +37,25 @@ public class DangNhap extends javax.swing.JFrame {
     }
     //Hàm sử dụng để đăng nhập
     private void signIn(){
-        if(getDataFromTextField()==null){
+        TaiKhoanNhanVien dataTextFlied = getDataFromTextField();
+        if(dataTextFlied==null){
             return;
         }
         TaiKhoanNhanVienController tknvc = new TaiKhoanNhanVienController();
-        TaiKhoanNhanVien tknv = tknvc.selectByModel(getDataFromTextField());
+        TaiKhoanNhanVien tknv = tknvc.selectByModel(dataTextFlied);
         if(tknv==null){
              JOptionPane.showMessageDialog(this, "Sai Số điện thoại và mật khẩu rồi bạn ơi !");
-             return;
+             System.out.println(tknv.getMa_NhanVien());
+             return;//Không trả về kết quả cho ngừng chạy luôn
         }
-        if(tknv.getSoDienThoai().equalsIgnoreCase(getDataFromTextField().getSoDienThoai())){
-            if(tknv.getMatKhau().equalsIgnoreCase(getDataFromTextField().getMatKhau())){
-                JOptionPane.showMessageDialog(this, "Đăng nhập được rồi nè với tài khoản mã: " + tknv.getMa_NhanVien());
+        //check cho có vui vui chứ có kết quả trả về là tài khoản và mật khẩu đúng rồi
+        if(tknv.getSoDienThoai().equalsIgnoreCase(dataTextFlied.getSoDienThoai())){
+            if(tknv.getMatKhau().equalsIgnoreCase(dataTextFlied.getMatKhau())){
+//                JOptionPane.showMessageDialog(this, "Đăng nhập được rồi nè với tài khoản mã: " + tknv.getMa_NhanVien());
+                Ma_NhanVienstatic = tknv.getMa_NhanVien();
+                new DangNhap().setVisible(false);
+                MenuApp menuApp = new MenuApp();
+                menuApp.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(this, "Sai mật khẩu rùi nha");
             }
@@ -55,14 +65,14 @@ public class DangNhap extends javax.swing.JFrame {
     }
     
     //Hàm kiểm tra xem có rỗng không nếu rỗng trả về null và hiện lên thông báo
-    private TaiKhoanNhanVien getDataFromTextField(){       
-        if(!txtPhoneNumber.getText().trim().equalsIgnoreCase("")){
-            
-            String SoDienThoai = txtPhoneNumber.getText();
-            if(!txtPassword.getText().trim().equalsIgnoreCase("")){
-                String MatKhau = txtPassword.getText();
+    private TaiKhoanNhanVien getDataFromTextField(){
+        String SoDienThoai = txtPhoneNumber.getText().trim();
+        String MatKhau = txtPassword.getText().trim();
+        if(SoDienThoai.equalsIgnoreCase("")==false){
+            if(MatKhau.equalsIgnoreCase("")==false){
                 TaiKhoanNhanVien tknv = new TaiKhoanNhanVien(SoDienThoai, MatKhau);
-            return tknv;
+                System.out.println(SoDienThoai+MatKhau);
+                return tknv;
             }else{
                 JOptionPane.showMessageDialog(this, "Chưa nhập mật khẩu nè bạn ơi !");
                 return null;
@@ -94,11 +104,17 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         txtDateNew = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         txtYearNew = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         txtMonthNew = new javax.swing.JLabel();
         txtDayNewText = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,7 +146,7 @@ public class DangNhap extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -173,7 +189,7 @@ public class DangNhap extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                             .addComponent(txtPhoneNumber)
                             .addComponent(txtPassword)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -201,7 +217,7 @@ public class DangNhap extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
@@ -210,62 +226,57 @@ public class DangNhap extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtDateNew.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        txtDateNew.setText("8");
-
-        txtYearNew.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtYearNew.setText("2024");
-
-        txtMonthNew.setText("Janluray");
-
-        txtDayNewText.setText("Monday");
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel12.setText("NERVER GIVE UP");
+        jLabel12.setText("                        NERVER GIVE UP");
+        jPanel4.add(jLabel12);
+
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel8.setText("DAY");
+        jPanel5.add(jLabel8);
+
+        txtDateNew.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        txtDateNew.setText("8");
+        jPanel5.add(txtDateNew);
+
+        jLabel9.setText("YEAR");
+        jPanel5.add(jLabel9);
+
+        txtYearNew.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        txtYearNew.setText("2024");
+        jPanel5.add(txtYearNew);
+
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel10.setText("Month");
+        jPanel6.add(jLabel10);
+
+        txtMonthNew.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        txtMonthNew.setText("Janluray");
+        jPanel6.add(txtMonthNew);
+
+        txtDayNewText.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        txtDayNewText.setText("Monday");
+        jPanel6.add(txtDayNewText);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(txtDateNew, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(txtMonthNew, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(txtYearNew, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addComponent(txtDayNewText, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(114, 114, 114))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel12)
-                .addGap(69, 69, 69))
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDateNew))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(txtYearNew)))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDayNewText)
-                    .addComponent(txtMonthNew))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                .addComponent(jLabel12)
-                .addGap(79, 79, 79))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -277,17 +288,17 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -295,6 +306,7 @@ public class DangNhap extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
@@ -340,6 +352,7 @@ public class DangNhap extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -347,9 +360,14 @@ public class DangNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel txtDateNew;
     private javax.swing.JLabel txtDayNewText;
     private javax.swing.JLabel txtMonthNew;
