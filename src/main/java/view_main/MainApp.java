@@ -12,6 +12,5 @@ public class MainApp {
     public static void main(String[] args) {
         DangNhap dangNhap = new DangNhap();
         dangNhap.setVisible(true);
-
     }
 }

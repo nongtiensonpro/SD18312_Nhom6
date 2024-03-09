@@ -12,13 +12,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.TaiKhoanNhanVIenFull;
 
 /**
  *
  * @author Nong_Tien_Son
  */
-public class TaiKhoanNhanVienController{
+public class TaiKhoanNhanVienController {
 
     public TaiKhoanNhanVien selectByModel(TaiKhoanNhanVien model) {
         Connection connection = null;
@@ -74,31 +76,36 @@ public class TaiKhoanNhanVienController{
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        
+
         List<TaiKhoanNhanVIenFull> tknvifs = new ArrayList<>();
         try {
             connection = DatabaseConnection.getConnection();
-            StringBuilder selectQuery = null;
-            if(ID_Key.equalsIgnoreCase("KhongCoGiCa")){
-                selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien\n "
-                    + "INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
-                    + "INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n");
-                  
-            }else{
-                selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien \n"
-                    + "INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
-                    + "INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
-                    + "WHERE TaiKhoanNhanVien.Ma_NhanVien = ?");
+//            StringBuilder selectQuery = null;
+//            if(ID_Key.equalsIgnoreCase("KhongCoGiCa")){
+//                selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien\n "
+//                    + "INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
+//                    + "INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n");
+//                  
+//            }else{
+//                selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien \n"
+//                    + "INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
+//                    + "INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
+//                    + "WHERE TaiKhoanNhanVien.Ma_NhanVien = ?");
+//            }
+            StringBuilder selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien\n" +
+"                    INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.SoDienThoai= TaiKhoanNhanVien.SoDienThoai\n" +
+"                    INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.SoDienThoai = TaiKhoanNhanVien.SoDienThoai");
+
+            if (!ID_Key.equalsIgnoreCase("KhongCoGiCa")) {
+                selectQuery.append("\nWHERE TaiKhoanNhanVien.Ma_NhanVien = ?");
             }
-            
 
             statement = connection.prepareStatement(selectQuery.toString());
-            if(ID_Key.equalsIgnoreCase("KhongCoGiCa")){
-                
-            }else{
+            if (ID_Key.equalsIgnoreCase("KhongCoGiCa")) {
+
+            } else {
                 statement.setString(1, ID_Key);
             }
-            
 
             resultSet = statement.executeQuery();
             TaiKhoanNhanVIenFull tknv = null;
