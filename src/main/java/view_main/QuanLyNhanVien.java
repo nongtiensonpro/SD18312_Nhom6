@@ -214,7 +214,18 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tblNhanVien.getModel();
+        dtm.setRowCount(0);
         
+        listTK= tknvc.selectNhanVienFull(txtTimKiem.getText()+"@");
+        for (TaiKhoanNhanVIenFull taiKhoanNhanVIenFull : listTK) {
+            dtm.addRow(new Object[]{
+            taiKhoanNhanVIenFull.getHoTen(),
+            taiKhoanNhanVIenFull.getSoDienThoai(),
+            taiKhoanNhanVIenFull.isVaiTro()?"Quản lý":"Nhân Viên",
+            taiKhoanNhanVIenFull.isTrangThai()?"Hoạt động":"Vô hiệu hóa"
+        });
+        }    
     }//GEN-LAST:event_btnFindActionPerformed
     private void hienThiTBLNhanVien(){
         DefaultTableModel dtm = (DefaultTableModel) tblNhanVien.getModel();
@@ -228,8 +239,7 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
             taiKhoanNhanVIenFull.isVaiTro()?"Quản lý":"Nhân Viên",
             taiKhoanNhanVIenFull.isTrangThai()?"Hoạt động":"Vô hiệu hóa"
         });
-        }
-        
+        }    
     }
     /**
      * @param args the command line arguments

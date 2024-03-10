@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.TaiKhoanNhanVIenFull;
+import utilities.CheckText;
 
 /**
  *
@@ -82,10 +83,16 @@ public class TaiKhoanNhanVienController {
                     + "                    INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.SoDienThoai= TaiKhoanNhanVien.SoDienThoai\n"
                     + "                    INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.SoDienThoai = TaiKhoanNhanVien.SoDienThoai");
 
-            if (!ID_Key.equalsIgnoreCase("KhongCoGiCa")) {
+            if (CheckText.checkAtExists(ID_Key)) {
+                ID_Key = CheckText.removeAt(ID_Key);
+                System.out.println(ID_Key);
+                selectQuery.append("\nWHERE TaiKhoanNhanVien.SoDienThoai LIKE ?");
+                System.out.println("Meo Meo");
+            }  
+            else if(!ID_Key.equalsIgnoreCase("KhongCoGiCa")) {
                 selectQuery.append("\nWHERE TaiKhoanNhanVien.Ma_NhanVien = ?");
+                System.out.println("GauGau");
             }
-
             statement = connection.prepareStatement(selectQuery.toString());
             if (ID_Key.equalsIgnoreCase("KhongCoGiCa")) {
 
@@ -244,7 +251,7 @@ public class TaiKhoanNhanVienController {
             statement3.setBoolean(3, taiKhoanNhanVIenFull.isTrangThai());
             statement3.setString(4, taiKhoanNhanVIenFull.getSoDienThoai());
             int ketQua3 = statement3.executeUpdate();
-            
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
