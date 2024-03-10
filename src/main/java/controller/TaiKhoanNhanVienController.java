@@ -12,8 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.TaiKhoanNhanVIenFull;
 
 /**
@@ -80,21 +78,9 @@ public class TaiKhoanNhanVienController {
         List<TaiKhoanNhanVIenFull> tknvifs = new ArrayList<>();
         try {
             connection = DatabaseConnection.getConnection();
-//            StringBuilder selectQuery = null;
-//            if(ID_Key.equalsIgnoreCase("KhongCoGiCa")){
-//                selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien\n "
-//                    + "INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
-//                    + "INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n");
-//                  
-//            }else{
-//                selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien \n"
-//                    + "INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
-//                    + "INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.Ma_NhanVien = TaiKhoanNhanVien.Ma_NhanVien\n"
-//                    + "WHERE TaiKhoanNhanVien.Ma_NhanVien = ?");
-//            }
-            StringBuilder selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien\n" +
-"                    INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.SoDienThoai= TaiKhoanNhanVien.SoDienThoai\n" +
-"                    INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.SoDienThoai = TaiKhoanNhanVien.SoDienThoai");
+            StringBuilder selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien\n"
+                    + "                    INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.SoDienThoai= TaiKhoanNhanVien.SoDienThoai\n"
+                    + "                    INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.SoDienThoai = TaiKhoanNhanVien.SoDienThoai");
 
             if (!ID_Key.equalsIgnoreCase("KhongCoGiCa")) {
                 selectQuery.append("\nWHERE TaiKhoanNhanVien.Ma_NhanVien = ?");
@@ -152,6 +138,130 @@ public class TaiKhoanNhanVienController {
             }
         }
         return null;
+    }
+
+    public boolean themTaiKhoanNhanVien(TaiKhoanNhanVIenFull taiKhoanNhanVIenFull) {
+        Connection connection = null;
+        PreparedStatement statement1 = null;
+        PreparedStatement statement2 = null;
+        PreparedStatement statement3 = null;
+
+        try {
+            connection = DatabaseConnection.getConnection();
+
+            // INSERT into TaiKhoanNhanVien
+            StringBuilder sql1 = new StringBuilder("INSERT INTO TaiKhoanNhanVien (SoDienThoai, MatKhau) VALUES (?, ?)");
+            statement1 = connection.prepareStatement(sql1.toString());
+            statement1.setString(1, taiKhoanNhanVIenFull.getSoDienThoai());
+            statement1.setString(2, taiKhoanNhanVIenFull.getMatKhau());
+            statement1.executeUpdate();
+
+            // INSERT into ChucVuNhanVien
+            StringBuilder sql2 = new StringBuilder("INSERT INTO ChucVuNhanVien (SoDienThoai, VaiTro, NgayTao, NgaySua, TrangThai) VALUES (?, ?, GETDATE(), GETDATE(), ?)");
+            statement2 = connection.prepareStatement(sql2.toString());
+            statement2.setString(1, taiKhoanNhanVIenFull.getSoDienThoai());
+            statement2.setBoolean(2, taiKhoanNhanVIenFull.isVaiTro());
+            statement2.setBoolean(3, taiKhoanNhanVIenFull.isTrangThai());
+            statement2.executeUpdate();
+
+            // INSERT into ThongTinNhanVien
+            StringBuilder sql3 = new StringBuilder("INSERT INTO ThongTinNhanVien (SoDienThoai, HoTen, GioiTinh, NgaySinh, DiaChi, Email) VALUES (?, ?, ?, ?, ?, ?)");
+            statement3 = connection.prepareStatement(sql3.toString());
+            statement3.setString(1, taiKhoanNhanVIenFull.getSoDienThoai());
+            statement3.setString(2, taiKhoanNhanVIenFull.getHoTen());
+            statement3.setBoolean(3, taiKhoanNhanVIenFull.isGioiTinh());
+            statement3.setDate(4, taiKhoanNhanVIenFull.getNgaySinh());
+            statement3.setString(5, taiKhoanNhanVIenFull.getDiaChi());
+            statement3.setString(6, taiKhoanNhanVIenFull.getEmail());
+            statement3.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Đóng kết nối và giải phóng tài nguyên
+            try {
+                if (statement3 != null) {
+                    statement3.close();
+                }
+                if (statement2 != null) {
+                    statement2.close();
+                }
+                if (statement1 != null) {
+                    statement1.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean capNhapTaiKhoanNhanVien(TaiKhoanNhanVIenFull taiKhoanNhanVIenFull) {
+        Connection connection = null;
+        PreparedStatement statement1 = null;
+        PreparedStatement statement2 = null;
+        PreparedStatement statement3 = null;
+
+        try {
+            connection = DatabaseConnection.getConnection();
+
+            // UPDATE TaiKhoanNhanVien
+            StringBuilder sql1 = new StringBuilder("UPDATE TaiKhoanNhanVien SET "
+                    + "MatKhau = ?");
+            sql1.append("WHERE SoDienThoai = ?\n");
+            statement1 = connection.prepareStatement(sql1.toString());
+            statement1.setString(1, taiKhoanNhanVIenFull.getMatKhau());
+            statement1.setString(2, taiKhoanNhanVIenFull.getSoDienThoai());
+            int ketQua1 = statement1.executeUpdate();
+
+            StringBuilder sql2 = new StringBuilder("UPDATE ThongTinNhanVien SET "
+                    + "HoTen = ? ,"
+                    + "GioiTinh = ? ,"
+                    + "NgaySinh = ? ,"
+                    + "DiaChi = ? ,"
+                    + "Email = ? "
+                    + "WHERE SoDienThoai = ?\n");
+            statement2 = connection.prepareCall(sql2.toString());
+            statement2.setString(1, taiKhoanNhanVIenFull.getHoTen());
+            statement2.setBoolean(2, taiKhoanNhanVIenFull.isGioiTinh());
+            statement2.setDate(3, taiKhoanNhanVIenFull.getNgaySinh());
+            statement2.setString(4, taiKhoanNhanVIenFull.getDiaChi());
+            statement2.setString(5, taiKhoanNhanVIenFull.getEmail());
+            statement2.setString(6, taiKhoanNhanVIenFull.getSoDienThoai());
+            int ketQua2 = statement2.executeUpdate();
+            StringBuilder sql3 = new StringBuilder("UPDATE ChucVuNhanVien SET "
+                    + "VaiTro = ?,"
+                    + "NgaySua = ? ,"
+                    + "TrangThai = ? "
+                    + "WHERE SoDienThoai = ?");
+            statement3 = connection.prepareStatement(sql3.toString());
+            statement3.setBoolean(1, taiKhoanNhanVIenFull.isVaiTro());
+            statement3.setDate(2, taiKhoanNhanVIenFull.getNgaySua());
+            statement3.setBoolean(3, taiKhoanNhanVIenFull.isTrangThai());
+            statement3.setString(4, taiKhoanNhanVIenFull.getSoDienThoai());
+            int ketQua3 = statement3.executeUpdate();
+            
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Đóng kết nối và giải phóng tài nguyên
+            try {
+                if (statement1 != null) {
+                    statement1.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

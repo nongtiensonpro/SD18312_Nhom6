@@ -14,6 +14,7 @@ CREATE TABLE TaiKhoanNhanVien (
     SoDienThoai VARCHAR(20) UNIQUE,
     MatKhau VARCHAR(50)
 )
+SELECT * FROM TaiKhoanNhanVien
 GO
 CREATE TABLE ThongTinNhanVien(
     SoDienThoai VARCHAR(20)  PRIMARY KEY,

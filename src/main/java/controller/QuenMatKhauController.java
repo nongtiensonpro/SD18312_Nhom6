@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.DoiMatKhau;
 import model.MaXacNhanTaiKhoan;
-import model.TaiKhoanNhanVien;
 
 /**
  *

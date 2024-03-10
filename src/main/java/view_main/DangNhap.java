@@ -4,7 +4,7 @@
  */
 package view_main;
 
-import utilities.DateNew;
+
 import controller.TaiKhoanNhanVienController;
 import javax.swing.JOptionPane;
 import model.TaiKhoanNhanVien;
@@ -20,21 +20,14 @@ public class DangNhap extends javax.swing.JFrame {
      */
     public DangNhap() {
         initComponents();
-        setDate();
         dangNhapNhanh();//dùng để dăng nhập nhanh không cần mật khẩu
     }
     private void dangNhapNhanh(){
         txtPhoneNumber.setText("123456789");
-        txtPassword.setText("123456789");
+        txtPassword.setText("456789");
     }
     //hiển thị thứ ngày tháng năm nè
-    private void setDate() {
-        DateNew dateNew = new DateNew();
-        txtDateNew.setText(dateNew.dayNew());
-        txtDayNewText.setText(dateNew.dayTextNew());
-        txtMonthNew.setText(dateNew.monthNew());
-        txtYearNew.setText(dateNew.yearNew());
-    }
+
     //Hàm sử dụng để đăng nhập
     private void signIn(){
         TaiKhoanNhanVien dataTextFlied = getDataFromTextField();
@@ -45,7 +38,6 @@ public class DangNhap extends javax.swing.JFrame {
         TaiKhoanNhanVien tknv = tknvc.selectByModel(dataTextFlied);
         if(tknv==null){
              JOptionPane.showMessageDialog(this, "Sai Số điện thoại và mật khẩu rồi bạn ơi !");
-             System.out.println(tknv.getMa_NhanVien());
              return;//Không trả về kết quả cho ngừng chạy luôn
         }
         //check cho có vui vui chứ có kết quả trả về là tài khoản và mật khẩu đúng rồi
@@ -53,7 +45,6 @@ public class DangNhap extends javax.swing.JFrame {
             if(tknv.getMatKhau().equalsIgnoreCase(dataTextFlied.getMatKhau())){
 //                JOptionPane.showMessageDialog(this, "Đăng nhập được rồi nè với tài khoản mã: " + tknv.getMa_NhanVien());
                 Ma_NhanVienstatic = tknv.getMa_NhanVien();
-                new DangNhap().setVisible(false);
                 MenuApp menuApp = new MenuApp();
                 menuApp.setVisible(true);
             }else{
@@ -71,7 +62,6 @@ public class DangNhap extends javax.swing.JFrame {
         if(SoDienThoai.equalsIgnoreCase("")==false){
             if(MatKhau.equalsIgnoreCase("")==false){
                 TaiKhoanNhanVien tknv = new TaiKhoanNhanVien(SoDienThoai, MatKhau);
-                System.out.println(SoDienThoai+MatKhau);
                 return tknv;
             }else{
                 JOptionPane.showMessageDialog(this, "Chưa nhập mật khẩu nè bạn ơi !");
@@ -101,20 +91,12 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnLogIn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        txtDateNew = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        txtYearNew = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        txtMonthNew = new javax.swing.JLabel();
-        txtDayNewText = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,7 +106,7 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel1.setText("WELLCOME TO THE YELLOW CAT SALES SOFTWARE");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("jLabel2");
+        jLabel2.setText("Logo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,8 +157,6 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Restart the software");
-
         txtPassword.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -191,17 +171,14 @@ public class DangNhap extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                             .addComponent(txtPhoneNumber)
                             .addComponent(txtPassword)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 166, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLogIn)))
                 .addContainerGap())
@@ -222,10 +199,8 @@ public class DangNhap extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
                 .addGap(20, 20, 20))
         );
 
@@ -233,38 +208,9 @@ public class DangNhap extends javax.swing.JFrame {
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel12.setText("                        NERVER GIVE UP");
-        jPanel4.add(jLabel12);
-
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel8.setText("DAY");
-        jPanel5.add(jLabel8);
-
-        txtDateNew.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        txtDateNew.setText("8");
-        jPanel5.add(txtDateNew);
-
-        jLabel9.setText("YEAR");
-        jPanel5.add(jLabel9);
-
-        txtYearNew.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        txtYearNew.setText("2024");
-        jPanel5.add(txtYearNew);
-
         jPanel6.setLayout(new java.awt.GridLayout(1, 0));
-
-        jLabel10.setText("Month");
-        jPanel6.add(jLabel10);
-
-        txtMonthNew.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        txtMonthNew.setText("Janluray");
-        jPanel6.add(txtMonthNew);
-
-        txtDayNewText.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        txtDayNewText.setText("Monday");
-        jPanel6.add(txtDayNewText);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -273,6 +219,9 @@ public class DangNhap extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +229,9 @@ public class DangNhap extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -303,7 +254,7 @@ public class DangNhap extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -362,28 +313,20 @@ public class DangNhap extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JLabel txtDateNew;
-    private javax.swing.JLabel txtDayNewText;
-    private javax.swing.JLabel txtMonthNew;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPhoneNumber;
-    private javax.swing.JLabel txtYearNew;
     // End of variables declaration//GEN-END:variables
 }

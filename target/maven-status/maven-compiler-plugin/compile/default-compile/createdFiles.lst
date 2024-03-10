@@ -17,10 +17,12 @@ view_main\MenuApp$1.class
 view_main\QuenMatKhau$3.class
 view_main\QuanLyNhanVien.class
 view_main\ThongTinNhanVien$1.class
+utilities\MsgBox.class
 view_main\DangNhap$2.class
 view_main\MenuApp$2.class
 view_main\ThongTinNhanVien$5.class
 view_main\DangNhap$1.class
+view_main\QuanLyNhanVien$5.class
 model\MaXacNhanTaiKhoan.class
 view_main\ThongTinNhanVien$3.class
 utilities\DateNew.class

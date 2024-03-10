@@ -192,14 +192,16 @@ public class QuenMatKhau extends javax.swing.JFrame {
            MaXacNhanTaiKhoan mxntk = matKhauController.timMaXacNhan(txtCode.getText());
            if(mxntk==null){
                return;
-           }
-           if(mxntk.getTrangThai()){
+           }else{
+               if(mxntk.getTrangThai()){
                txtMaXacNhan.setText("Mã xác nhận hoạt động !");
                txtCode.setEditable(false);   
                
            }else{
                  txtMaXacNhan.setText("Mã xác nhận không hoạt động !");
            }
+           }
+           
         }
     }//GEN-LAST:event_btnCheckCodeActionPerformed
 
