@@ -138,6 +138,11 @@ public class MenuApp extends javax.swing.JFrame {
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("Quản lý sản phẩm");
 
@@ -220,6 +225,16 @@ public class MenuApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Bạn không có quyền sử dụng tính năng này !");
         }
     }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        // TODO add your handling code here:
+        if (tknvif.isVaiTro()) {
+           QuanLySanPham qlsp = new QuanLySanPham();
+           qlsp.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền sử dụng tính năng này !");
+        }
+    }//GEN-LAST:event_jPanel4MouseClicked
 
     /**
      * @param args the command line arguments

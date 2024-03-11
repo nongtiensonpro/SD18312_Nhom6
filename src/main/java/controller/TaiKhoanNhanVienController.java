@@ -82,16 +82,13 @@ public class TaiKhoanNhanVienController {
             StringBuilder selectQuery = new StringBuilder("SELECT * FROM TaiKhoanNhanVien\n"
                     + "                    INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.SoDienThoai= TaiKhoanNhanVien.SoDienThoai\n"
                     + "                    INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.SoDienThoai = TaiKhoanNhanVien.SoDienThoai");
-
             if (CheckText.checkAtExists(ID_Key)) {
                 ID_Key = CheckText.removeAt(ID_Key);
                 System.out.println(ID_Key);
                 selectQuery.append("\nWHERE TaiKhoanNhanVien.SoDienThoai LIKE ?");
-                System.out.println("Meo Meo");
             }  
             else if(!ID_Key.equalsIgnoreCase("KhongCoGiCa")) {
                 selectQuery.append("\nWHERE TaiKhoanNhanVien.Ma_NhanVien = ?");
-                System.out.println("GauGau");
             }
             statement = connection.prepareStatement(selectQuery.toString());
             if (ID_Key.equalsIgnoreCase("KhongCoGiCa")) {
