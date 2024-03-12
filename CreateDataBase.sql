@@ -38,7 +38,13 @@ CREATE TABLE MaXacNhanTaiKhoan(
     NgaySuDung DATE,
     TrangThai BIT
 )
-
+CREATE TABLE Hang(
+MaHang varchar(20) primary key,
+TrangThai bit,
+NgayTao Date,
+NgaySua Date,
+MoTa nvarchar(50)
+)
 INSERT INTO MaXacNhanTaiKhoan(TrangThai)
 VALUES(1)
 SELECT * FROM MaXacNhanTaiKhoan

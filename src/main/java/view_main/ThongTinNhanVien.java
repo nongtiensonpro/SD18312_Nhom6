@@ -55,26 +55,26 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
         }
     }
 
-        private TaiKhoanNhanVIenFull layDuLieuTaiKhoanNhanVienMoi() {
-            TaiKhoanNhanVIenFull full = new TaiKhoanNhanVIenFull();
+    private TaiKhoanNhanVIenFull layDuLieuTaiKhoanNhanVienMoi() {
+        TaiKhoanNhanVIenFull full = new TaiKhoanNhanVIenFull();
 
-            full.setSoDienThoai(txtSoDienThoaiNV.getText());
-            full.setMatKhau(txtMatKhauNhanVien.getText());
-            full.setVaiTro(rdoQuanLy.isSelected() ? true : false);
-            full.setTrangThai(rdHoatDong.isSelected() ? true : false);
-            full.setHoTen(txtHoTen.getText());
-            full.setGioiTinh(rdoNam.isSelected() ? true : false);
-            java.util.Date utilDate = dateNgaySinh.getCalendar().getTime(); // Lấy đối tượng java.util.Date
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // Chuyển đổi sang java.sql.Date
-            full.setNgaySinh(sqlDate);
+        full.setSoDienThoai(txtSoDienThoaiNV.getText());
+        full.setMatKhau(txtMatKhauNhanVien.getText());
+        full.setVaiTro(rdoQuanLy.isSelected() ? true : false);
+        full.setTrangThai(rdHoatDong.isSelected() ? true : false);
+        full.setHoTen(txtHoTen.getText());
+        full.setGioiTinh(rdoNam.isSelected() ? true : false);
+        java.util.Date utilDate = dateNgaySinh.getCalendar().getTime(); // Lấy đối tượng java.util.Date
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // Chuyển đổi sang java.sql.Date
+        full.setNgaySinh(sqlDate);
 
-            java.util.Date ngaySuaDate = dateNgaySua.getCalendar().getTime(); // Lấy đối tượng java.util.Date
-            java.sql.Date ngaySuaSQL = new java.sql.Date(ngaySuaDate.getTime());
-            full.setNgaySua(ngaySuaSQL );
-            full.setDiaChi(txtDiaChi.getText());
-            full.setEmail(txtEmail.getText());
-            return full;
-        }
+        java.time.LocalDate ngaySuaLocalDate = java.time.LocalDate.now();
+        full.setNgaySua(java.sql.Date.valueOf(ngaySuaLocalDate));
+
+        full.setDiaChi(txtDiaChi.getText());
+        full.setEmail(txtEmail.getText());
+        return full;
+    }
 
     private boolean validateTextFrom() {
 
@@ -163,7 +163,7 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
         txtMatKhauNhanVien.setText(tKFull.getMatKhau());
         if (tKFull.isVaiTro()) {
             rdoQuanLy.setSelected(true);
-        }else{
+        } else {
             rdoNhanVien.setSelected(true);
         }
         dateNgayTao.setDate(tKFull.getNgayTao());
@@ -528,20 +528,20 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
         if (btnLeft.getText().equals("ADD")) {
             themNhanVien();
         }
-        if(btnLeft.getText().equalsIgnoreCase("EDIT")){
+        if (btnLeft.getText().equalsIgnoreCase("EDIT")) {
             suaNhanVien();
         }
     }//GEN-LAST:event_meomeoMouseClicked
     private void suaNhanVien() {
         if (validateTextFrom()) {
             boolean ketQua = taiKhoanNhanVienControllerStatic.capNhapTaiKhoanNhanVien(layDuLieuTaiKhoanNhanVienMoi());
-            
-            if(ketQua){
-                MsgBox.alert(this, "Bạn đã sửa thành công nhân viên có số điện thoại : " + layDuLieuTaiKhoanNhanVienMoi().getSoDienThoai()); 
-            }else{
+
+            if (ketQua) {
+                MsgBox.alert(this, "Bạn đã sửa thành công nhân viên có số điện thoại : " + layDuLieuTaiKhoanNhanVienMoi().getSoDienThoai());
+            } else {
                 MsgBox.alert(this, "Bạn đã sửa thất bại nhân viên có số điện thoại : " + layDuLieuTaiKhoanNhanVienMoi().getSoDienThoai());
             }
-        
+
         }
     }
     /**
@@ -619,5 +619,4 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 
-    
 }

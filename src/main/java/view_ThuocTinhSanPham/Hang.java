@@ -4,19 +4,44 @@
  */
 package view_ThuocTinhSanPham;
 
+import controller.HangController;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.HangModel;
+
 /**
  *
  * @author Nong_Tien_Son
  */
 public class Hang extends javax.swing.JFrame {
-
+    HangController hangController = new HangController();
+    List<HangModel> danhSachHang = new ArrayList<>();
+    public static HangModel hangstatic = new HangModel();
     /**
      * Creates new form Hang
      */
     public Hang() {
         initComponents();
+        hienThiHang();
     }
-
+    public void hienThiHang(){
+        DefaultTableModel dtm = (DefaultTableModel)tblHangsx.getModel();
+        dtm.setRowCount(0);
+        
+        danhSachHang = hangController.timkiemHang();
+        for (HangModel hangModel : danhSachHang) {
+            dtm.addRow(new Object[]{
+            hangModel.getMaHang(),
+     
+//            hangModel.getNgayTao(),
+            hangModel.getNgaySua(),
+//            hangModel.getMoTa()
+                   hangModel.getTrangThai()?"Hoạt động":"Không hoạt động"
+            });
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,9 +58,10 @@ public class Hang extends javax.swing.JFrame {
         btnFind = new javax.swing.JButton();
         btnRest = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHangsx = new javax.swing.JTable();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -77,6 +103,13 @@ public class Hang extends javax.swing.JFrame {
             }
         });
 
+        btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -88,6 +121,8 @@ public class Hang extends javax.swing.JFrame {
                 .addComponent(btnFind)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAdd)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRest)
                 .addGap(31, 31, 31))
@@ -100,13 +135,14 @@ public class Hang extends javax.swing.JFrame {
                     .addComponent(txtTimKiemHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFind)
                     .addComponent(btnRest)
-                    .addComponent(btnAdd))
+                    .addComponent(btnAdd)
+                    .addComponent(btnUpdate))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHangsx.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -117,7 +153,12 @@ public class Hang extends javax.swing.JFrame {
                 "Tên", "Ngày Sửa", "Trạng Thái"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblHangsx.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHangsxMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblHangsx);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -162,6 +203,7 @@ public class Hang extends javax.swing.JFrame {
 
     private void btnRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestActionPerformed
         // TODO add your handling code here:
+        hienThiHang();
     }//GEN-LAST:event_btnRestActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -170,6 +212,19 @@ public class Hang extends javax.swing.JFrame {
         hangChiTiet.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void tblHangsxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHangsxMouseClicked
+        // TODO add your handling code here:
+        int stt = tblHangsx.getSelectedRow();
+        hangstatic = hangController.timkiemHang().get(stt);
+        SuaHangChiTiet suaHangChiTiet = new SuaHangChiTiet();
+        suaHangChiTiet.setVisible(true);
+    }//GEN-LAST:event_tblHangsxMouseClicked
+
+    
     /**
      * @param args the command line arguments
      */
@@ -196,6 +251,7 @@ public class Hang extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Hang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -209,12 +265,13 @@ public class Hang extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnRest;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblHangsx;
     private javax.swing.JTextField txtTimKiemHang;
     // End of variables declaration//GEN-END:variables
 }
