@@ -40,11 +40,14 @@ CREATE TABLE MaXacNhanTaiKhoan(
 )
 CREATE TABLE Hang(
 MaHang varchar(20) primary key,
+TenHang nvarchar(50),
 TrangThai bit,
 NgayTao Date,
 NgaySua Date,
 MoTa nvarchar(50)
 )
+drop Table Hang
+SELECT * FROM Hang
 INSERT INTO MaXacNhanTaiKhoan(TrangThai)
 VALUES(1)
 SELECT * FROM MaXacNhanTaiKhoan

@@ -4,18 +4,21 @@
  */
 package view_ThuocTinhSanPham;
 
+import controller.HangController;
+import java.util.Date;
+import model.HangModel;
 import utilities.MsgBox;
 
 /**
  *
  * @author Nong_Tien_Son
  */
-public class HangChiTiet extends javax.swing.JFrame {
-
+public class ThemHang extends javax.swing.JFrame {
+HangController hangController = new HangController();
     /**
      * Creates new form HangChiTiet
      */
-    public HangChiTiet() {
+    public ThemHang() {
         initComponents();
         hienThiNgayTao();
     }
@@ -46,6 +49,8 @@ public class HangChiTiet extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMoTa = new javax.swing.JTextArea();
         btnAdd = new javax.swing.JToggleButton();
+        txtTenHang = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -75,6 +80,8 @@ public class HangChiTiet extends javax.swing.JFrame {
 
         jLabel3.setText("Ngày tạo");
 
+        txtNgayTao.setEnabled(false);
+
         jLabel4.setText("Ngày Sửa");
 
         jLabel5.setText("Trạng Thái");
@@ -95,6 +102,8 @@ public class HangChiTiet extends javax.swing.JFrame {
             }
         });
 
+        txtNgaySua.setEnabled(false);
+
         jLabel6.setText("Mô tả");
 
         txtMoTa.setColumns(20);
@@ -107,6 +116,8 @@ public class HangChiTiet extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
+
+        jLabel7.setText("Tên Hãng");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,7 +145,9 @@ public class HangChiTiet extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(rdKhongHoatDong))
                                 .addComponent(txtNgaySua, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1))
+                    .addComponent(txtTenHang, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -157,13 +170,17 @@ public class HangChiTiet extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNgaySua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addGap(2, 2, 2)
+                .addComponent(txtTenHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGap(33, 33, 33)
                 .addComponent(btnAdd)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -193,6 +210,7 @@ public class HangChiTiet extends javax.swing.JFrame {
     private void hienThiNgayTao(){
         java.time.LocalDate ngaySuaLocalDate = java.time.LocalDate.now();
         txtNgayTao.setDate(java.sql.Date.valueOf(ngaySuaLocalDate));
+        txtNgaySua.setDate(java.sql.Date.valueOf(ngaySuaLocalDate));
     }
     private void rdHoatDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdHoatDongActionPerformed
         // TODO add your handling code here:
@@ -204,25 +222,64 @@ public class HangChiTiet extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        
+        if(kiemTraTrong()){
+            boolean ketQua = hangController.themHang(taoDoituong());
+            if(ketQua){
+                MsgBox.alert(this, "Bạn đã thêm hãng thành công");
+            }else{
+                MsgBox.alert(this, "Bạn đã thêm hãng thất bại");
+            }
+        }
     }//GEN-LAST:event_btnAddActionPerformed
+    
+    public HangModel taoDoituong() {
+        HangModel hang = new HangModel();
+        hang.setMaHang(txtMaHang.getText());
+        hang.setTrangThai(rdHoatDong.isSelected() ? true : false);
+        hang.setTen(txtTenHang.getText());
+        java.util.Date utilDate = txtNgayTao.getCalendar().getTime();
+        java.sql.Date ngayTao = new java.sql.Date(utilDate.getTime());
+        hang.setNgayTao(ngayTao);
+
+        // Lấy ngày hiện tại cho ngaySua:
+        java.sql.Date ngaySua = new java.sql.Date(new Date().getTime()); // Sử dụng java.util.Date
+        // Hoặc:
+        // java.sql.Date ngaySua = new java.sql.Date(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()); // Sử dụng java.time.LocalDate
+
+        hang.setNgaySua(ngaySua);
+        System.out.println(ngaySua + "GauGau");
+        hang.setMoTa(txtMoTa.getText());
+
+        return hang;
+    }
+    
     private boolean kiemTraTrong(){
         
-        if(txtMaHang.getText().trim().equals("")){
-            MsgBox.alert(this, "Bạn chưa nhập mã hàng !");
+        if (txtMaHang.getText().trim().equals("")) {
+            MsgBox.alert(this, "Bạn chưa nhập mã hãng!");
             return false;
         }
-        if(rdHoatDong.isSelected()==false){
-            if(rdKhongHoatDong.isSelected()==false){
-                MsgBox.alert(this, "Bạn chưa chọn trạng thái !");
+        if (txtNgayTao.getDate().toString().equals("")) {
+            MsgBox.alert(this, "Bạn hãy chọn ngày tạo!");
+            return false;
+        }
+        if (txtNgaySua.getDate().toString().equals("")) {
+            MsgBox.alert(this, "Bạn hãy chọn ngày sửa!");
+        }
+        if (rdHoatDong.isSelected() == false) {
+            if (rdKhongHoatDong.isSelected() == false) {
+                MsgBox.alert(this, "Mời bạn chọn trạng thái!");
                 return false;
             }
         }
-        if(txtMoTa.getText().trim().equals("")){
-            MsgBox.alert(this, "Bạn chưa nhập mô tả !");
+        if (txtMoTa.getText().trim().equals("")) {
+            MsgBox.alert(this, "Bạn hãy nhập mô tả!");
             return false;
         }
-        
+        if (txtTenHang.getText().trim().equals("")) {
+            MsgBox.alert(this, "Bạn chưa nhập tên hãng!");
+            return false;
+        }
         return true;
     }
     /**
@@ -242,20 +299,21 @@ public class HangChiTiet extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HangChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HangChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HangChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HangChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HangChiTiet().setVisible(true);
+                new ThemHang().setVisible(true);
             }
         });
     }
@@ -269,6 +327,7 @@ public class HangChiTiet extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -278,5 +337,6 @@ public class HangChiTiet extends javax.swing.JFrame {
     private javax.swing.JTextArea txtMoTa;
     private com.toedter.calendar.JDateChooser txtNgaySua;
     private com.toedter.calendar.JDateChooser txtNgayTao;
+    private javax.swing.JTextField txtTenHang;
     // End of variables declaration//GEN-END:variables
 }
