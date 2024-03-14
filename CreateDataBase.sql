@@ -9,15 +9,18 @@ GO
 CREATE DATABASE SD18312_TEAM_6
 
 GO
-CREATE TABLE TaiKhoanNhanVien (
+CREATE TABLE TaiKhoanNhanVien
+(
     Ma_NhanVien VARCHAR(36) PRIMARY KEY DEFAULT NEWID(),
     SoDienThoai VARCHAR(20) UNIQUE,
     MatKhau VARCHAR(50)
 )
-SELECT * FROM TaiKhoanNhanVien
+SELECT *
+FROM TaiKhoanNhanVien
 GO
-CREATE TABLE ThongTinNhanVien(
-    SoDienThoai VARCHAR(20)  PRIMARY KEY,
+CREATE TABLE ThongTinNhanVien
+(
+    SoDienThoai VARCHAR(20) PRIMARY KEY,
     HoTen NVARCHAR(35),
     GioiTinh BIT,
     NgaySinh DATE,
@@ -25,38 +28,68 @@ CREATE TABLE ThongTinNhanVien(
     Email VARCHAR(35)
 )
 GO
-CREATE TABLE ChucVuNhanVien(
+CREATE TABLE ChucVuNhanVien
+(
     SoDienThoai VARCHAR(20) PRIMARY KEY,
     VaiTro BIT,
     NgayTao DATE,
     NgaySua DATE,
     TrangThai BIT
 )
-CREATE TABLE MaXacNhanTaiKhoan(
+CREATE TABLE MaXacNhanTaiKhoan
+(
     Ma_MaXacNhan VARCHAR(36) PRIMARY KEY DEFAULT NEWID(),
     SoDienThoai VARCHAR(20),
     NgaySuDung DATE,
     TrangThai BIT
 )
-CREATE TABLE Hang(
-MaHang varchar(20) primary key,
-TenHang nvarchar(50),
-TrangThai bit,
-NgayTao Date,
-NgaySua Date,
-MoTa nvarchar(50)
+CREATE TABLE Hang
+(
+    MaHang varchar(20) primary key,
+    TenHang nvarchar(50),
+    TrangThai bit,
+    NgayTao Date,
+    NgaySua Date,
+    MoTa nvarchar(50)
 )
+
+CREATE TABLE MauSac(
+    MaMauSac VARCHAR(20) PRIMARY key,
+    TenHang NVARCHAR(50),
+    TrangThai bit,
+    NgayTao Date,
+    NgaySua Date,
+    MoTa NVARCHAR(50)
+)
+
+CREATE TABLE NhaSanXuat(
+    MaNSX varchar(20) PRIMARY KEY,
+    TenNSX NVARCHAR(50),
+    QuocGia NVARCHAR(50),
+    TrangThai bit,
+    NgayTao date,
+    NgaySua date,
+    MoTa NVARCHAR(50)
+)
+
 drop Table Hang
-SELECT * FROM Hang
-INSERT INTO MaXacNhanTaiKhoan(TrangThai)
+SELECT *
+FROM Hang
+INSERT INTO MaXacNhanTaiKhoan
+    (TrangThai)
 VALUES(1)
-SELECT * FROM MaXacNhanTaiKhoan
+SELECT *
+FROM MaXacNhanTaiKhoan
+
 
 
 UPDATE MaXacNhanTaiKhoan 
 SET TrangThai = 0,
-SET SoDienThoai = '123456789',
-SET NgaySuDung = getDate();
+SET SoDienThoai
+= '123456789',
+SET NgaySuDung
+= getDate
+();
 WHERE Ma_MaXacNhan='D329F69E-3806-406D-B42F-94F1C78A137B'
 
 UPDATE TaiKhoanNhanVien
@@ -75,23 +108,31 @@ WHERE SoDienThoai = '123456789'
 
 
 
-INSERT INTO TaiKhoanNhanVien (SoDienThoai, MatKhau)
-VALUES 
-('123456789', '123456789')
-INSERT INTO ChucVuNhanVien (SoDienThoai, VaiTro,NgayTao,NgaySua,TrangThai)
-VALUES 
-('123456789', 1,GETDATE(),GETDATE(),1)
+INSERT INTO TaiKhoanNhanVien
+    (SoDienThoai, MatKhau)
+VALUES
+    ('123456789', '123456789')
+INSERT INTO ChucVuNhanVien
+    (SoDienThoai, VaiTro,NgayTao,NgaySua,TrangThai)
+VALUES
+    ('123456789', 1, GETDATE(), GETDATE(), 1)
 
-INSERT INTO ThongTinNhanVien (SoDienThoai,HoTen,GioiTinh,NgaySinh,DiaChi,Email)
-VALUES 
-('123456789', N'Nông Tiến Sơn',1,GETDATE(),N'Hà Nội','nongtiensonpro@gmail.com')
-INSERT INTO ChucVuNhanVien (SoDienThoai, VaiTro,NgayTao,NgaySua,TrangThai)
-VALUES 
-('123456789', 1,GETDATE(),GETDATE(),1)
-SELECT Ma_NhanVien, SoDienThoai, MatKhau FROM TaiKhoanNhanVien
-SELECT * FROM ChucVuNhanVien
-SELECT * FROM ThongTinNhanVien
+INSERT INTO ThongTinNhanVien
+    (SoDienThoai,HoTen,GioiTinh,NgaySinh,DiaChi,Email)
+VALUES
+    ('123456789', N'Nông Tiến Sơn', 1, GETDATE(), N'Hà Nội', 'nongtiensonpro@gmail.com')
+INSERT INTO ChucVuNhanVien
+    (SoDienThoai, VaiTro,NgayTao,NgaySua,TrangThai)
+VALUES
+    ('123456789', 1, GETDATE(), GETDATE(), 1)
+SELECT Ma_NhanVien, SoDienThoai, MatKhau
+FROM TaiKhoanNhanVien
+SELECT *
+FROM ChucVuNhanVien
+SELECT *
+FROM ThongTinNhanVien
 
-SELECT * FROM TaiKhoanNhanVien
-                    INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.SoDienThoai= TaiKhoanNhanVien.SoDienThoai
-                    INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.SoDienThoai = TaiKhoanNhanVien.SoDienThoai
+SELECT *
+FROM TaiKhoanNhanVien
+    INNER JOIN ChucVuNhanVien ON ChucVuNhanVien.SoDienThoai= TaiKhoanNhanVien.SoDienThoai
+    INNER JOIN ThongTinNhanVien ON ThongTinNhanVien.SoDienThoai = TaiKhoanNhanVien.SoDienThoai

@@ -15,14 +15,4 @@ public class CheckText {
     public static String removeAt(String str) {
         return str.replace("@", "");
     }
-    public static void main(String[] args) {
-        String str = "@Meo";
-
-        boolean newStr = checkAtExists(str);
-        System.out.println(newStr);
-        if (checkAtExists(str)) {
-            System.out.println(removeAt(str).trim());
-        }
-
-    }
 }

@@ -10,41 +10,50 @@ import java.sql.Date;
  *
  * @author Khanh
  */
-public class HangModel {
-    private String maHang;
-    private String tenHang;
-    
+public class NhaSanXuatModel {
+    private String maNSX;
+    private String tenNSX;
+    private String quocGia;
+    private Boolean trangThai;
     private Date ngayTao;
     private Date ngaySua;
     private String moTa;
-    private Boolean trangThai;
 
-    public HangModel() {
+    public NhaSanXuatModel() {
     }
 
-    public HangModel(String maHang, String tenHang, Boolean trangThai, Date ngayTao, Date ngaySua, String moTa) {
-        this.maHang = maHang;
-        this.tenHang = tenHang;
+    public NhaSanXuatModel(String maNSX, String tenNSX, String quocGia, Boolean trangThai, Date ngayTao, Date ngaySua, String moTa) {
+        this.maNSX = maNSX;
+        this.tenNSX = tenNSX;
+        this.quocGia = quocGia;
         this.trangThai = trangThai;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
         this.moTa = moTa;
     }
 
-    public String getMaHang() {
-        return maHang;
+    public String getMaNSX() {
+        return maNSX;
     }
 
-    public void setMaHang(String maHang) {
-        this.maHang = maHang;
+    public void setMaNSX(String maNSX) {
+        this.maNSX = maNSX;
     }
 
-    public String getTenHang() {
-        return tenHang;
+    public String getTenNSX() {
+        return tenNSX;
     }
 
-    public void setTenHang(String tenHang) {
-        this.tenHang = tenHang;
+    public void setTenNSX(String tenNSX) {
+        this.tenNSX = tenNSX;
+    }
+
+    public String getQuocGia() {
+        return quocGia;
+    }
+
+    public void setQuocGia(String quocGia) {
+        this.quocGia = quocGia;
     }
 
     public Boolean getTrangThai() {
@@ -78,10 +87,6 @@ public class HangModel {
     public void setMoTa(String moTa) {
         this.moTa = moTa;
     }
-
-    
-
-    
     
     
 }

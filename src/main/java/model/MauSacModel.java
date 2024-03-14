@@ -10,41 +10,40 @@ import java.sql.Date;
  *
  * @author Khanh
  */
-public class HangModel {
-    private String maHang;
-    private String tenHang;
-    
+public class MauSacModel {
+    private String maMauSac;
+    private String tenMauSac;
+    private Boolean trangThai;
     private Date ngayTao;
     private Date ngaySua;
     private String moTa;
-    private Boolean trangThai;
 
-    public HangModel() {
+    public MauSacModel() {
     }
 
-    public HangModel(String maHang, String tenHang, Boolean trangThai, Date ngayTao, Date ngaySua, String moTa) {
-        this.maHang = maHang;
-        this.tenHang = tenHang;
+    public MauSacModel(String maMauSac, String tenMauSac, Boolean trangThai, Date ngayTao, Date ngaySua, String moTa) {
+        this.maMauSac = maMauSac;
+        this.tenMauSac = tenMauSac;
         this.trangThai = trangThai;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
         this.moTa = moTa;
     }
 
-    public String getMaHang() {
-        return maHang;
+    public String getMaMauSac() {
+        return maMauSac;
     }
 
-    public void setMaHang(String maHang) {
-        this.maHang = maHang;
+    public void setMaMauSac(String maMauSac) {
+        this.maMauSac = maMauSac;
     }
 
-    public String getTenHang() {
-        return tenHang;
+    public String getTenMauSac() {
+        return tenMauSac;
     }
 
-    public void setTenHang(String tenHang) {
-        this.tenHang = tenHang;
+    public void setTenMauSac(String tenMauSac) {
+        this.tenMauSac = tenMauSac;
     }
 
     public Boolean getTrangThai() {
@@ -78,10 +77,6 @@ public class HangModel {
     public void setMoTa(String moTa) {
         this.moTa = moTa;
     }
-
-    
-
-    
     
     
 }
