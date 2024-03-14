@@ -1,5 +1,6 @@
 controller\HangController.class
 view_ThuocTinhSanPham\Hang.class
+view_main\QuanLyMaQuenMatKhau$4.class
 model\DoiMatKhau.class
 view_main\ThuocTinhSanPham$1.class
 view_ThuocTinhSanPham\ThemHang$3.class
@@ -7,8 +8,10 @@ DBConnection\DatabaseConnection.class
 view_main\ThongTinNhanVien$4.class
 view_ThuocTinhSanPham\Hang$4.class
 view_main\DangNhap.class
+view_main\QuanLyMaQuenMatKhau$1.class
 view_ThuocTinhSanPham\SuaHangChiTiet$3.class
 view_main\QuenMatKhau.class
+view_main\QuanLyMaQuenMatKhau$3.class
 view_ThuocTinhSanPham\SuaHangChiTiet$1.class
 view_main\MainApp.class
 view_main\MenuApp$1.class
@@ -23,6 +26,7 @@ view_main\ThongTinNhanVien$3.class
 view_main\ThuocTinhSanPham$2.class
 view_ThuocTinhSanPham\Hang$3.class
 view_main\QuanLyNhanVien$2.class
+view_main\MenuApp$4.class
 view_ThuocTinhSanPham\SuaHangChiTiet$4.class
 view_ThuocTinhSanPham\ThemHang$2.class
 controller\QuenMatKhauController.class
@@ -46,6 +50,7 @@ view_main\ThongTinNhanVien.class
 view_main\QuanLyNhanVien.class
 view_main\ThongTinNhanVien$1.class
 utilities\MsgBox.class
+view_main\QuanLyMaQuenMatKhau.class
 view_main\MenuApp$2.class
 view_main\ThongTinNhanVien$5.class
 view_ThuocTinhSanPham\SuaHangChiTiet$2.class
@@ -53,3 +58,4 @@ view_main\DangNhap$1.class
 model\MaXacNhanTaiKhoan.class
 utilities\DateNew.class
 view_main\QuenMatKhau$1.class
+view_main\QuanLyMaQuenMatKhau$2.class

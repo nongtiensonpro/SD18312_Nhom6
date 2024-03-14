@@ -8,9 +8,11 @@ import controller.QuenMatKhauController;
 import controller.TaiKhoanNhanVienController;
 import java.awt.Color;
 import java.awt.JobAttributes;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.DoiMatKhau;
 import model.MaXacNhanTaiKhoan;
+import utilities.MsgBox;
 
 /**
  *
@@ -189,11 +191,12 @@ public class QuenMatKhau extends javax.swing.JFrame {
     private void btnCheckCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckCodeActionPerformed
         // TODO add your handling code here:
         if(!txtCode.getText().trim().equals("")){
-           MaXacNhanTaiKhoan mxntk = matKhauController.timMaXacNhan(txtCode.getText());
-           if(mxntk==null){
+           List<MaXacNhanTaiKhoan> mxntk = (List<MaXacNhanTaiKhoan>) matKhauController.timMaXacNhan(txtCode.getText());
+           if(mxntk.size()==0){
+               txtMaXacNhan.setText("Không tìm được mã xác nhận !");
                return;
            }else{
-               if(mxntk.getTrangThai()){
+               if(mxntk.get(0).getTrangThai()){
                txtMaXacNhan.setText("Mã xác nhận hoạt động !");
                txtCode.setEditable(false);   
                
@@ -207,6 +210,11 @@ public class QuenMatKhau extends javax.swing.JFrame {
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
+        if(txtMaXacNhan.getText().equalsIgnoreCase("Không tìm được mã xác nhận !"))
+        {
+            MsgBox.alert(this, "Không xác nhận không đúng nè !");
+            return;
+        }
         if(txtMaXacNhan.getText().equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this, "Chưa check mã xác nhận nè !");
             return;
@@ -219,9 +227,9 @@ public class QuenMatKhau extends javax.swing.JFrame {
         if(checkNull()){
            boolean ketQua = matKhauController.capNhatMatKhau(getDataFromText());
            if(ketQua){
-               JOptionPane.showMessageDialog(this, "Bạn đã đổi mật khẩu thành công");
+               JOptionPane.showMessageDialog(this, "Bạn đã đổi mật khẩu thành công mời đăng nhập lại !");
            }else{
-                JOptionPane.showMessageDialog(this, "Bạn đã đổi mật khẩu thất bại");
+                JOptionPane.showMessageDialog(this, "Bạn đã đổi mật khẩu thất bại hãy kiểm tra lại số điện thoại !");
            }
         }
         
@@ -234,6 +242,9 @@ public class QuenMatKhau extends javax.swing.JFrame {
         if(txtPasswordNew.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập mật khẩu");
             return false;
+        }
+        if(txtCode.getText().trim().equals("")){
+            MsgBox.alert(this, "Bạn chưa nhập mã xác nhận nè");
         }
         return true;
     }

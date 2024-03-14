@@ -206,6 +206,8 @@ private void hienThiNgayTao(){
             }
         });
 
+        txtNgaySua.setEnabled(false);
+
         jLabel6.setText("Mô tả");
 
         txtMoTa.setColumns(20);

@@ -9,8 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.DoiMatKhau;
 import model.MaXacNhanTaiKhoan;
+import utilities.CheckText;
 
 /**
  *
@@ -18,27 +21,45 @@ import model.MaXacNhanTaiKhoan;
  */
 public class QuenMatKhauController {
 
-    public MaXacNhanTaiKhoan timMaXacNhan(String maXacNhanInput) {
+    public List<MaXacNhanTaiKhoan> timMaXacNhan(String maXacNhanInput) {
 
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        MaXacNhanTaiKhoan mxntk = new MaXacNhanTaiKhoan();
-
+        MaXacNhanTaiKhoan mxntk = null;
+        List<MaXacNhanTaiKhoan> listMaQuenMatKhau = new ArrayList<>();
         try {
             connection = DatabaseConnection.getConnection();
-            StringBuffer selectQuery = new StringBuffer("SELECT Ma_MaXacNhan,"
-                    + "TrangThai FROM MaXacNhanTaiKhoan WHERE Ma_MaXacNhan = ?");
+            StringBuffer selectQuery = new StringBuffer("SELECT *"
+                    + " FROM MaXacNhanTaiKhoan ");
+
+            if (CheckText.checkAtExists(maXacNhanInput)) {
+                selectQuery.append("WHERE SoDienThoai = ?");
+            } else if (maXacNhanInput.equals("") == false) {
+
+                selectQuery.append("WHERE Ma_MaXacNhan = ?");
+            }
             statement = connection.prepareCall(selectQuery.toString());
-            statement.setString(1, maXacNhanInput);
+            if (CheckText.checkAtExists(maXacNhanInput)) {
+                maXacNhanInput = CheckText.removeAt(maXacNhanInput);
+                statement.setString(1, maXacNhanInput);
+            } else if (maXacNhanInput.equals("") == false) {
+                statement.setString(1, maXacNhanInput);
+            }
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                mxntk = new MaXacNhanTaiKhoan();
                 mxntk.setMaMaXacNhan(resultSet.getString("Ma_MaXacNhan"));
+                mxntk.setMaNhanVien(resultSet.getString("SoDienThoai"));
+                mxntk.setNgaySuDung(resultSet.getDate("NgaySuDung"));
                 mxntk.setTrangThai(resultSet.getBoolean("TrangThai"));
+                listMaQuenMatKhau.add(mxntk);
             }
-            return mxntk;
+            return listMaQuenMatKhau;
         } catch (Exception e) {
+
             e.printStackTrace();
+            return listMaQuenMatKhau;
         } finally {
             if (resultSet != null) {
                 try {
@@ -62,7 +83,78 @@ public class QuenMatKhauController {
                 }
             }
         }
-        return null;
+    }
+
+    public boolean themMaQuenMatKhau() {
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            String sql = "INSERT INTO MaXacNhanTaiKhoan(TrangThai)\n"
+                    + "VALUES(1)";
+            connection = DatabaseConnection.getConnection();
+            statement = connection.prepareCall(sql);
+            statement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Đóng kết nối và giải phóng tài nguyên
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public boolean voHieuHoaMaXacNhan(String maMuonHuyInput) {
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DatabaseConnection.getConnection();
+
+            String sql = "UPDATE MaXacNhanTaiKhoan \n"
+                    + "SET TrangThai = 0  "
+                    + "WHERE Ma_MaXacNhan= ?";
+            statement = connection.prepareCall(sql);
+            statement.setString(1, maMuonHuyInput);
+            statement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Đóng kết nối và giải phóng tài nguyên
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public boolean capNhatMatKhau(DoiMatKhau doiMatKhau) {
