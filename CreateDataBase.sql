@@ -119,8 +119,28 @@ SELECT * FROM ChiTietSanPham
 
 DROP TABLE ChiTietSanPham
 
-
-
+CREATE TABLE KhachHang(
+    Ma_KhachHang NVARCHAR(20) PRIMARY KEY,
+    Ten NVARCHAR(50),
+    NgaySinh Date,
+    GioiTinh Bit,
+    SDT VARCHAR(20),
+    DiaChi NVARCHAR(MAX),
+    TrangThai bit
+)
+INSERT INTO KhachHang (Ma_KhachHang, Ten, NgaySinh, GioiTinh, SDT, DiaChi, TrangThai)
+VALUES 
+('KH001', N'Nguyễn Văn A', '1990-05-15', 1, '0123456789', N'Hà Nội', 1),
+('KH002', N'Phạm Thị B', '1985-09-20', 0, '0987654321', N'Hồ Chí Minh', 1),
+('KH003', N'Trần Văn C', '1995-12-10', 1, '0369852147', N'Đà Nẵng', 1),
+('KH004', N'Lê Thị D', '1992-04-25', 0, '0932147856', N'Hải Phòng', 1),
+('KH005', N'Huỳnh Văn E', '1988-08-05', 1, '0852147963', N'Cần Thơ', 1),
+('KH006', N'Mai Thị F', '1997-03-18', 0, '0765214938', N'Bình Dương', 1),
+('KH007', N'Ngô Văn G', '1993-11-30', 1, '0658741239', N'Hưng Yên', 1),
+('KH008', N'Đặng Thị H', '1986-07-12', 0, '0541236987', N'Hà Tĩnh', 1),
+('KH009', N'Lý Văn I', '1998-06-22', 1, '0978523641', N'Hải Dương', 1),
+('KH010', N'Trần Thị K', '1991-02-28', 0, '0321456987', N'Thái Bình', 1);
+SELECT * FROM KhachHang
 
 
 

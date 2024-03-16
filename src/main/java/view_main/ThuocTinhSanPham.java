@@ -4,11 +4,11 @@
  */
 package view_main;
 
-import view_ThuocTinhSanPham.ChatLieu;
-import view_ThuocTinhSanPham.Hang;
-import view_ThuocTinhSanPham.MauSac;
-import view_ThuocTinhSanPham.NSX;
-import view_ThuocTinhSanPham.Size;
+import view_2.ChatLieu;
+import view_2.Hang;
+import view_2.MauSac;
+import view_2.NSX;
+import view_2.Size;
 
 /**
  *
@@ -280,7 +280,7 @@ public class ThuocTinhSanPham extends javax.swing.JFrame {
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
-        view_ThuocTinhSanPham.Size sizeNe = new Size();
+        view_2.Size sizeNe = new Size();
         sizeNe.setVisible(true);
     }//GEN-LAST:event_jPanel4MouseClicked
 

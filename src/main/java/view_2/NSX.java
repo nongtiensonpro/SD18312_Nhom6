@@ -2,43 +2,44 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view_ThuocTinhSanPham;
+package view_2;
 
-
-import controller.MauSacController;
+import controller.NhaSanXuatController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import model.MauSacModel;
+import model.NhaSanXuatModel;
 
 /**
  *
  * @author Khanh
  */
-public class MauSac extends javax.swing.JFrame {
-    MauSacController mauSacController = new MauSacController();
-    List<MauSacModel> danhsachMauSac = new ArrayList<>();
-    public static MauSacModel mauSacstatic = new MauSacModel();
+public class NSX extends javax.swing.JFrame {
+    NhaSanXuatController nsxController = new NhaSanXuatController();
+    List<NhaSanXuatModel> danhSachNSX = new ArrayList<>();
+    public static NhaSanXuatModel nsxStatic = new NhaSanXuatModel();
     /**
-     * Creates new form MauSac
+     * Creates new form NSX
      */
-    public MauSac() {
+    public NSX() {
         initComponents();
-        hienThiMauSac();
+        hienThiNSX();
     }
-    public void hienThiMauSac(){
-        DefaultTableModel dtm = (DefaultTableModel) tblMauSac.getModel();
+
+    public void hienThiNSX(){
+        DefaultTableModel dtm = (DefaultTableModel) tblNSX.getModel();
         dtm.setRowCount(0);
-        
-        danhsachMauSac = mauSacController.timkiemMauSac();
-        for (MauSacModel mauSacModel : danhsachMauSac) {
+
+        danhSachNSX = nsxController.timkiemNSX();
+        for (NhaSanXuatModel hangModel : danhSachNSX) {
             dtm.addRow(new Object[]{
-                mauSacModel.getMaMauSac(),
-                mauSacModel.getTenMauSac(),
-                mauSacModel.getNgayTao(),
-                mauSacModel.getNgaySua(),
-                mauSacModel.getMoTa(),
-                mauSacModel.getTrangThai() ? "Hoạt động" : "Không hoạt động"
+                hangModel.getMaNSX(),
+                hangModel.getTenNSX(),
+                hangModel.getQuocGia(),
+                hangModel.getNgayTao(),
+                hangModel.getNgaySua(),
+                hangModel.getMoTa(),
+                hangModel.getTrangThai() ? "Hoạt động" : "Không hoạt động"
             });
         }
     }
@@ -53,35 +54,35 @@ public class MauSac extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblMauSac = new javax.swing.JTable();
+        tblNSX = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txtTimKiemMauSac = new javax.swing.JTextField();
+        txtTimNSX = new javax.swing.JTextField();
         btnFind = new javax.swing.JButton();
         btnRest = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        tblMauSac.setModel(new javax.swing.table.DefaultTableModel(
+        tblNSX.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã", "Tên", "Ngày Tạo", "Ngày Sửa", "Mô Tả", "Trạng Thái"
+                "Mã", "Tên", "Quốc Gia", "Ngày Tạo", "Ngày Sửa", "Mô Tả", "Trạng Thái"
             }
         ));
-        tblMauSac.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblNSX.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblMauSacMouseClicked(evt);
+                tblNSXMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblMauSac);
+        jScrollPane1.setViewportView(tblNSX);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -93,13 +94,13 @@ public class MauSac extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("QUẢN LÝ MÀU SẮC");
+        jLabel1.setText("QUẢN LÝ NHÀ SẢN XUẤT");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,7 +119,7 @@ public class MauSac extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnFind.setText("FIND");
         btnFind.addActionListener(new java.awt.event.ActionListener() {
@@ -154,14 +155,14 @@ public class MauSac extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(txtTimKiemMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTimNSX, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnFind)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAdd)
                 .addGap(18, 18, 18)
                 .addComponent(btnUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addComponent(btnRest)
                 .addGap(31, 31, 31))
         );
@@ -170,7 +171,7 @@ public class MauSac extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTimKiemMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimNSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFind)
                     .addComponent(btnRest)
                     .addComponent(btnAdd)
@@ -206,30 +207,31 @@ public class MauSac extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMauSacMouseClicked
+    private void tblNSXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNSXMouseClicked
         // TODO add your handling code here:
-        int stt = tblMauSac.getSelectedRow();
-        mauSacstatic = mauSacController.timkiemMauSac().get(stt);
-        SuaMauSac suaMauSac = new SuaMauSac();
-        suaMauSac.setVisible(true);
-    }//GEN-LAST:event_tblMauSacMouseClicked
+        int stt = tblNSX.getSelectedRow();
+        nsxStatic = nsxController.timkiemNSX().get(stt);
+        SuaNSX suaNSX = new SuaNSX();
+        suaNSX.setVisible(true);
+    }//GEN-LAST:event_tblNSXMouseClicked
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
-        if (txtTimKiemMauSac.getText().trim().equals("")==false) {
-            List<MauSacModel> mauSacModels = mauSacController.timKiemMauSacTheoMa(txtTimKiemMauSac.getText());
-            DefaultTableModel dtm = (DefaultTableModel) tblMauSac.getModel();
+        if (txtTimNSX.getText().trim().equals("")==false) {
+            List<NhaSanXuatModel> hangModels = nsxController.timKiemNSXTheoMa(txtTimNSX.getText());
+            DefaultTableModel dtm = (DefaultTableModel) tblNSX.getModel();
             dtm.setRowCount(0);
 
-            mauSacModels = mauSacController.timKiemMauSacTheoMa(txtTimKiemMauSac.getText());
-            for (MauSacModel mauSacModel : mauSacModels) {
+            hangModels = nsxController.timKiemNSXTheoMa(txtTimNSX.getText());
+            for (NhaSanXuatModel hangModel : hangModels) {
                 dtm.addRow(new Object[]{
-                    mauSacModel.getMaMauSac(),
-                    mauSacModel.getTenMauSac(),
-                    mauSacModel.getNgayTao(),
-                    mauSacModel.getNgaySua(),
-                    mauSacModel.getMoTa(),
-                    mauSacModel.getTrangThai() ? "Hoạt động" : "Không hoạt động"
+                    hangModel.getMaNSX(),
+                    hangModel.getTenNSX(),
+                    hangModel.getQuocGia(),
+                    hangModel.getNgayTao(),
+                    hangModel.getNgaySua(),
+                    hangModel.getMoTa(),
+                    hangModel.getTrangThai() ? "Hoạt động" : "Không hoạt động"
                 });
             }
         }
@@ -237,13 +239,13 @@ public class MauSac extends javax.swing.JFrame {
 
     private void btnRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestActionPerformed
         // TODO add your handling code here:
-        hienThiMauSac();
+        hienThiNSX();
     }//GEN-LAST:event_btnRestActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        ThemMauSac mauSacChitiet = new ThemMauSac();
-        mauSacChitiet.setVisible(true);
+        ThemNSX themNSX = new ThemNSX();
+        themNSX.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -252,7 +254,7 @@ public class MauSac extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
-     */
+//     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -267,20 +269,20 @@ public class MauSac extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(MauSac.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(NSX.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(MauSac.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(NSX.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(MauSac.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(NSX.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(MauSac.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(NSX.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new MauSac().setVisible(true);
+//                new NSX().setVisible(true);
 //            }
 //        });
 //    }
@@ -295,7 +297,7 @@ public class MauSac extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblMauSac;
-    private javax.swing.JTextField txtTimKiemMauSac;
+    private javax.swing.JTable tblNSX;
+    private javax.swing.JTextField txtTimNSX;
     // End of variables declaration//GEN-END:variables
 }

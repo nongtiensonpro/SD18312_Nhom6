@@ -45,6 +45,7 @@ public class ThemSanPhamJFrame extends javax.swing.JFrame {
     SizeController sizeController = new SizeController();
     ChatLieuController chatLieuController = new ChatLieuController();
     SanPhamChiTietController sanPhamChiTietController = new SanPhamChiTietController();
+
     /**
      * Creates new form SanPhamJFrame
      */
@@ -54,8 +55,6 @@ public class ThemSanPhamJFrame extends javax.swing.JFrame {
         hienThiNgayTao();
         luaChonBanDau();
     }
-
-    
 
     private void luaChonBanDau() {
         rdoHoatDong.setSelected(true);
@@ -202,7 +201,7 @@ public class ThemSanPhamJFrame extends javax.swing.JFrame {
                 } else {
                     khongKhaDung++;
                 }
-                 boxModel.addElement(chatLieuModel.getMaChatLieu() + " " + chatLieuModel.getTen());
+                boxModel.addElement(chatLieuModel.getMaChatLieu() + " " + chatLieuModel.getTen());
             }
             txtChatLieuKhaDung.setText(String.valueOf(khaDung));
             txtChatLieuKhongKhaDung.setText(String.valueOf(khongKhaDung));
@@ -659,49 +658,13 @@ public class ThemSanPhamJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (validateNew()) {
             boolean ketQua = sanPhamChiTietController.themSanPhamChiTietNew(taoObjectSanPhamNew());
-            if(ketQua){
+            if (ketQua) {
                 MsgBox.alert(this, "Bạn đã thêm sản phẩm thành công !");
-            }else{
+            } else {
                 MsgBox.alert(this, "Bạn đã thêm sản phẩm thất bại !");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThemSanPhamJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThemSanPhamJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThemSanPhamJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThemSanPhamJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ThemSanPhamJFrame().setVisible(true);
-            }
-        });
-    }
     private SanPhamNew taoObjectSanPhamNew() {
         SanPhamNew sanPhamNew = new SanPhamNew();
 
@@ -719,14 +682,50 @@ public class ThemSanPhamJFrame extends javax.swing.JFrame {
         sanPhamNew.setMaSanXuat(nhaSanXuatController.timkiemNSX().get(cboNhaSanXuat.getSelectedIndex()).getMaNSX());
         sanPhamNew.setMaChatLieu(chatLieuController.timkiemChatLieu().get(cboChatLieu.getSelectedIndex()).getMaChatLieu());
         sanPhamNew.setMaSize(sizeController.timkiemSize().get(cboMaSize.getSelectedIndex()).getMaSize());
-        if(txtMoTa.getText().equals("")==false){
+        if (txtMoTa.getText().equals("") == false) {
             sanPhamNew.setMoTa(txtMoTa.getText());
-        }else{
+        } else {
             sanPhamNew.setMoTa("Thông tin đang cập nhật !");
-        }       
-        sanPhamNew.setAnhSanPham(imageBytes);       
+        }
+        sanPhamNew.setAnhSanPham(imageBytes);
         return sanPhamNew;
     }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ThemSanPhamJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ThemSanPhamJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ThemSanPhamJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ThemSanPhamJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ThemSanPhamJFrame().setVisible(true);
+//            }
+//        });
+//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboChatLieu;

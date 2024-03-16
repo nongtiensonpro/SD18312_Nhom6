@@ -2,26 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view_ThuocTinhSanPham;
+package view_2;
 
-import controller.ChatLieuController;
+import controller.SanPhamController;
 import java.util.Date;
-import model.ChatLieuModel;
+import model.HangModel;
+import model.SanPhamModel;
 import utilities.MsgBox;
 
 /**
  *
  * @author LENHATLINH
  */
-public class SuaChatLieuChiTiet extends javax.swing.JFrame {
-    ChatLieuController sanphamController = new ChatLieuController();
-
+public class SuaSanPhamChiTiet extends javax.swing.JFrame {
+    SanPhamController sanphamController = new SanPhamController();
     /**
-     * Creates new form SuaChatLieuChiTiet
+     * Creates new form SuaSanPham
      */
-    public SuaChatLieuChiTiet() {
+    public SuaSanPhamChiTiet() {
         initComponents();
-        hienThiChatLieu();
+        hienThiSanPham();
         hienThiNgayTao();
     }
     private void hienThiNgayTao(){
@@ -29,13 +29,13 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
      
         txtNgaySua.setDate(java.sql.Date.valueOf(ngaySuaLocalDate));
     }
-    public void hienThiChatLieu() {
-        txtMaChatLieu.setText(ChatLieu.ChatLieustatic.getMaChatLieu());
-        txtTenChatLieu.setText(ChatLieu.ChatLieustatic.getTen());
-        txtMoTa.setText(ChatLieu.ChatLieustatic.getMoTa());
-        txtNgayTao.setDate(ChatLieu.ChatLieustatic.getNgayTao());
-        txtNgaySua.setDate(ChatLieu.ChatLieustatic.getNgaySua());
-        if (ChatLieu.ChatLieustatic.getTrangThai()) {
+    public void hienThiSanPham() {
+        txtMaSanPham.setText(SanPham.SanPhamstatic.getMaSanPham());
+        txtTenSanPham.setText(SanPham.SanPhamstatic.getTen());
+        txtMoTa.setText(SanPham.SanPhamstatic.getMoTa());
+        txtNgayTao.setDate(SanPham.SanPhamstatic.getNgayTao());
+        txtNgaySua.setDate(SanPham.SanPhamstatic.getNgaySua());
+        if (SanPham.SanPhamstatic.getTrangThai()) {
             rdHoatDong.setSelected(true);
         } else {
             rdKhongHoatDong.setSelected(true);
@@ -43,8 +43,8 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
     }
 
     private Boolean kiemTraTrong() {
-        if (txtMaChatLieu.getText().trim().equals("")) {
-            MsgBox.alert(this, "Bạn chưa nhập mã chất liệu!");
+        if (txtMaSanPham.getText().trim().equals("")) {
+            MsgBox.alert(this, "Bạn chưa nhập mã sản phẩm!");
             return false;
         }
         if (txtNgayTao.getDate().toString().equals("")) {
@@ -64,8 +64,8 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
             MsgBox.alert(this, "Bạn hãy nhập mô tả!");
             return false;
         }
-        if (txtTenChatLieu.getText().trim().equals("")) {
-            MsgBox.alert(this, "Bạn chưa nhập tên chất liệu!");
+        if (txtTenSanPham.getText().trim().equals("")) {
+            MsgBox.alert(this, "Bạn chưa nhập tên sản phẩm!");
             return false;
         }
         return true;
@@ -85,7 +85,7 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtMaChatLieu = new javax.swing.JTextField();
+        txtMaSanPham = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtNgayTao = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
@@ -98,12 +98,12 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
         txtMoTa = new javax.swing.JTextArea();
         btnUpdate = new javax.swing.JToggleButton();
         jLabel7 = new javax.swing.JLabel();
-        txtTenChatLieu = new javax.swing.JTextField();
+        txtTenSanPham = new javax.swing.JTextField();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("SỬA CHẤT LIỆU");
+        jLabel1.setText("SỬA SẢN PHẨM");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,7 +112,7 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +124,9 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setText("Mã Chất Liệu");
+        jLabel2.setText("Mã Sản Phẩm");
 
-        txtMaChatLieu.setEnabled(false);
+        txtMaSanPham.setEnabled(false);
 
         jLabel3.setText("Ngày tạo");
 
@@ -161,7 +161,9 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Tên Chất Liệu");
+        jLabel7.setText("Tên Sản Phẩm");
+
+        txtTenSanPham.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -177,12 +179,12 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtMaChatLieu)
+                                    .addComponent(txtMaSanPham)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNgayTao, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                                     .addComponent(jLabel2))
                                 .addComponent(jLabel7)
-                                .addComponent(txtTenChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtTenSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addGap(28, 28, 28)
@@ -196,7 +198,7 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
                                         .addComponent(rdHoatDong, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(rdKhongHoatDong))
                                     .addGap(90, 90, 90))))))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,11 +208,11 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtMaSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTenChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTenSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
@@ -241,7 +243,7 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -272,11 +274,11 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
         suaDoiTuong();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    public ChatLieuModel taoDoituong() {
-        ChatLieuModel sanPhamModel = new ChatLieuModel();
-        sanPhamModel.setMaChatLieu(txtMaChatLieu.getText());
+    public SanPhamModel taoDoituong() {
+        SanPhamModel sanPhamModel = new SanPhamModel();
+        sanPhamModel.setMaSanPham(txtMaSanPham.getText());
         sanPhamModel.setTrangThai(rdHoatDong.isSelected() ? true : false);
-        sanPhamModel.setTen(txtTenChatLieu.getText());
+        sanPhamModel.setTen(txtTenSanPham.getText());
         java.util.Date utilDate = txtNgayTao.getCalendar().getTime();
         java.sql.Date ngayTao = new java.sql.Date(utilDate.getTime());
         sanPhamModel.setNgayTao(ngayTao);
@@ -295,7 +297,7 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
 
     public void suaDoiTuong() {
         if (kiemTraTrong()) {
-            Boolean ketqua = sanphamController.suaTenChatLieu(taoDoituong());
+            Boolean ketqua = sanphamController.suaTenSanPham(taoDoituong());
             if (ketqua) {
                 MsgBox.alert(this, "Bạn đã sửa thành công!");
             } else {
@@ -320,20 +322,21 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(SuaChatLieuChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SuaSanPhamChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(SuaChatLieuChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SuaSanPhamChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(SuaChatLieuChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SuaSanPhamChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(SuaChatLieuChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SuaSanPhamChiTiet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
+//        //</editor-fold>
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new SuaChatLieuChiTiet().setVisible(true);
+//                new SuaSanPhamChiTiet().setVisible(true);
 //            }
 //        });
 //    }
@@ -352,10 +355,10 @@ public class SuaChatLieuChiTiet extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rdHoatDong;
     private javax.swing.JRadioButton rdKhongHoatDong;
-    private javax.swing.JTextField txtMaChatLieu;
+    private javax.swing.JTextField txtMaSanPham;
     private javax.swing.JTextArea txtMoTa;
     private com.toedter.calendar.JDateChooser txtNgaySua;
     private com.toedter.calendar.JDateChooser txtNgayTao;
-    private javax.swing.JTextField txtTenChatLieu;
+    private javax.swing.JTextField txtTenSanPham;
     // End of variables declaration//GEN-END:variables
 }
