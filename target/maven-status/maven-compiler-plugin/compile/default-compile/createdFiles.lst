@@ -29,6 +29,7 @@ view_main\QuanLySanPham$2.class
 view_2\ThemChatLieu.class
 view_main\ThuocTinhSanPham$5.class
 view_2\MauSac$5.class
+view_2\ThemSanPhamJFrameNew$4.class
 view_main\QuanLySanPham.class
 view_main\QuanLyNhanVien$5.class
 view_2\Hang$1.class
@@ -40,8 +41,10 @@ view_main\QuanLyNhanVien$2.class
 view_main\MenuApp$4.class
 view_2\Hang$4.class
 view_2\MauSac$2.class
+view_2\ThemSanPhamJFrameNew$1.class
 controller\QuenMatKhauController.class
 view_2\SuaSanPhamChiTiet.class
+view_main\ThuocTinhFull.class
 view_2\ThemNSX$3.class
 view_main\DanhSachSanPham$1.class
 model\SizeModel.class
@@ -66,6 +69,7 @@ model\SanPhamModel.class
 view_main\QuanLyNhanVien$3.class
 view_main\QuanLyKhachHang.class
 view_2\MauSac$4.class
+view_2\ThemSanPhamJFrameNew$3.class
 model\MauSacModel.class
 view_main\QuanLyNhanVien.class
 view_main\ThongTinNhanVien$1.class
@@ -91,11 +95,13 @@ view_2\ChatLieu.class
 view_2\Hang$5.class
 view_2\MauSac$3.class
 view_2\SuaNSX$1.class
+view_2\ThemSanPhamJFrameNew$2.class
 view_main\ThuocTinhSanPham$4.class
 model\DoiMatKhau.class
 view_main\QuanLyKhachHang$2.class
 view_main\ThuocTinhSanPham$1.class
 DBConnection\DatabaseConnection.class
+view_2\ThemSanPhamJFrameNew$5.class
 view_main\ThongTinNhanVien$4.class
 model\TaiKhoanNhanVien.class
 view_2\SanPham$2.class
@@ -115,6 +121,7 @@ model\KhachHangModel.class
 model\SanPhamNew.class
 view_main\DangNhap$2.class
 model\HangModel.class
+view_main\ThuocTinhFull$1.class
 view_2\ThemMauSac$2.class
 controller\SanPhamController.class
 view_2\ChatLieu$2.class
@@ -162,8 +169,10 @@ view_2\SuaHangChiTiet.class
 view_main\DanhSachSanPham$4.class
 view_2\ThemNSX$1.class
 model\MaXacNhanTaiKhoan.class
+view_2\ThemSanPhamJFrameNew$6.class
 view_main\QuenMatKhau$1.class
 view_2\NSX.class
 view_2\ThemSanPham$3.class
+view_2\ThemSanPhamJFrameNew.class
 view_main\QuanLyMaQuenMatKhau$2.class
 view_2\ThemHang$2.class
