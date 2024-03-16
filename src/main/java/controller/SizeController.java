@@ -11,38 +11,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.HangModel;
+import model.SizeModel;
 
 /**
  *
- * @author Khanh
+ * @author LENHATLINH
  */
-public class HangController {
+public class SizeController {
 
-    public List<HangModel> timkiemHang() {
+    public List<SizeModel> timkiemSize() {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        HangModel hang = null;
+        SizeModel s = null;
 
-        List<HangModel> danhsachHang = new ArrayList<>();
+        List<SizeModel> danhsachTenSize = new ArrayList<>();
         try {
             connection = DatabaseConnection.getConnection();
-            String caulenhtruyvan = new String("select * from Hang");
+            String caulenhtruyvan = new String("select * from Size");
             statement = connection.prepareStatement(caulenhtruyvan);
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                hang = new HangModel();
-                hang.setMaHang(resultSet.getString("MaHang"));
-                hang.setTenHang(resultSet.getString("TenHang"));
-                hang.setTrangThai(resultSet.getBoolean("TrangThai"));
-                hang.setNgayTao(resultSet.getDate("NgayTao"));
-                hang.setNgaySua(resultSet.getDate("NgaySua"));
-                hang.setMoTa(resultSet.getString("MoTa"));
-                danhsachHang.add(hang);
+                s = new SizeModel();
+                s.setMaSize(resultSet.getString("MaSize"));
+                s.setSoSize(resultSet.getInt("SoSize"));
+                s.setMoTa(resultSet.getString("MoTa"));
+                danhsachTenSize.add(s);
             }
-            return danhsachHang;
+            return danhsachTenSize;
         } catch (Exception e) {
         } finally {
             if (resultSet != null) {
@@ -70,34 +67,25 @@ public class HangController {
         return null;
     }
 
-    public Boolean themHang(HangModel hangtruyenvao) {
+    public Boolean themTenSize(SizeModel sanPhamtruyenvao) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
             connection = DatabaseConnection.getConnection();
-            String caulenhthem = new String("INSERT INTO [dbo].[Hang]\n"
-                    + "           ([MaHang]\n"
-                    + "           ,[TrangThai]\n"
-                    + "           ,[NgayTao]\n"
-                    + "           ,[NgaySua]\n"
-                    + "           ,[MoTa],"
-                    + "TenHang)\n"
+            String caulenhthem = new String("INSERT INTO [dbo].[Size]\n"
+                    + "           ([MaSize]\n"
+                    + "           ,[SoSize]\n"
+                    + "           ,[MoTa])\n"
                     + "     VALUES\n"
                     + "           (?,\n"
                     + "           ?,\n"
-                    + "           ?,\n"
-                    + "           ?,\n"
-                    + "           ?,"
-                    + "?)");
+                    + "           ?)");
             statement = connection.prepareStatement(caulenhthem);
-            statement.setString(1, hangtruyenvao.getMaHang());
-            statement.setBoolean(2, hangtruyenvao.getTrangThai());
-            statement.setDate(3, hangtruyenvao.getNgayTao());
-            statement.setDate(4, hangtruyenvao.getNgaySua());
-            statement.setString(5, hangtruyenvao.getMoTa());
-            statement.setString(6, hangtruyenvao.getTenHang());
+            statement.setString(1, sanPhamtruyenvao.getMaSize());
+            statement.setInt(2, sanPhamtruyenvao.getSoSize());
+            statement.setString(3, sanPhamtruyenvao.getMoTa());
             statement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -129,30 +117,24 @@ public class HangController {
 
     }
 
-    public Boolean suaHang(HangModel hangModel) {
+    public Boolean suaTenSize(SizeModel sModel) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
             connection = DatabaseConnection.getConnection();
-            String caulenhUpdate = new String("UPDATE [dbo].[Hang]\n"
+            String caulenhUpdate = new String("UPDATE [dbo].[Size]\n"
                     + "   SET \n"
-                    + "      [TrangThai] = ?\n"
-                    + "      ,[NgayTao] = ?\n"
-                    + "      ,[NgaySua] = ?\n"
-                    + "      ,[MoTa] = ?"
-                    + "       ,TenHang = ?\n"
-                    + " WHERE MaHang=?");
+                    + "      [SoSize]=?\n"
+                    + "      ,[MoTa]=?\n"
+                    + "      WHERE [MaSize] = ?"
+            );
             statement = connection.prepareStatement(caulenhUpdate);
-//             statement.setString(1, hangModel.getMaHang());
-            statement.setBoolean(1, hangModel.getTrangThai());
-            statement.setDate(2, hangModel.getNgayTao());
-            statement.setDate(3, hangModel.getNgaySua());
-            System.out.println(hangModel.getNgaySua() + "MeoMeo");
-            statement.setString(4, hangModel.getMoTa());
-            statement.setString(5, hangModel.getTenHang());
-            statement.setString(6, hangModel.getMaHang());
+//             statement.setString(1, sModel.getMaHang());
+            statement.setString(3, sModel.getMaSize());
+            statement.setInt(1, sModel.getSoSize());
+            statement.setString(2, sModel.getMoTa());
             statement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -183,54 +165,54 @@ public class HangController {
         }
     }
 
-    public List<HangModel> timKiemHangTheoMa(String matimkiem) {
+    public SizeModel timKiemSizeTheoMa(String maSize) {
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        HangModel hang = null;
+        SizeModel sizeTimThay = null;
 
-        List<HangModel> danhsachHang = new ArrayList<>();
         try {
             connection = DatabaseConnection.getConnection();
-            String caulenhtruyvan = new String("select * from Hang where MaHang like ?");
-            statement = connection.prepareStatement(caulenhtruyvan);
-            statement.setString(1, matimkiem);
+            String sql = "SELECT * FROM [dbo].[Size] WHERE [MaSize] = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, maSize);
             resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                hang = new HangModel();
-                hang.setMaHang(resultSet.getString("MaHang"));
-                hang.setTenHang(resultSet.getString("TenHang"));
-                hang.setTrangThai(resultSet.getBoolean("TrangThai"));
-                hang.setNgayTao(resultSet.getDate("NgayTao"));
-                hang.setNgaySua(resultSet.getDate("NgaySua"));
-                hang.setMoTa(resultSet.getString("MoTa"));
-                danhsachHang.add(hang);
+
+            if (resultSet.next()) {
+                sizeTimThay = new SizeModel();
+                sizeTimThay.setMaSize(resultSet.getString("MaSize"));
+                sizeTimThay.setSoSize(resultSet.getInt("SoSize"));
+                sizeTimThay.setMoTa(resultSet.getString("MoTa"));
             }
-            return danhsachHang;
+
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            if (resultSet != null) {
-                try {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-            if (statement != null) {
-                try {
+            try {
+                if (statement != null) {
                     statement.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-            if (connection != null) {
-                try {
+            try {
+                if (connection != null) {
                     connection.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
-        return null;
+
+        return sizeTimThay;
     }
+
 }

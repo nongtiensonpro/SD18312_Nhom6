@@ -61,6 +61,11 @@ public class QuanLySanPham extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
 
         jLabel2.setText("SẢN PHẨM");
 
@@ -158,6 +163,14 @@ public class QuanLySanPham extends javax.swing.JFrame {
         ThuocTinhSanPham thuocTinhSanPham = new ThuocTinhSanPham();
         thuocTinhSanPham.setVisible(true);
     }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        // TODO add your handling code here:
+//        SanPhamJFrame sanPhamJFrame = new SanPhamJFrame();
+//        sanPhamJFrame.setVisible(true);
+        DanhSachSanPham danhSachSanPham = new DanhSachSanPham();
+        danhSachSanPham.setVisible(true);
+    }//GEN-LAST:event_jPanel3MouseClicked
 
     /**
      * @param args the command line arguments
